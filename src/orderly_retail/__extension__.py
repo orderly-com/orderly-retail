@@ -1,5 +1,5 @@
 import extension.extension as orderly_extension
-from .team.conditions import GenderCondition
+from .team.conditions import GenderCondition, AgeCondition
 
 class Extension(orderly_extension.Extension):
     def __init__(self):
@@ -7,7 +7,7 @@ class Extension(orderly_extension.Extension):
 
         self.register_filter_tab(
             {'zh_tw': '購買行為篩選'},
-            [GenderCondition()]
+            [GenderCondition(), AgeCondition()]
         )
 
     def get_localization():
