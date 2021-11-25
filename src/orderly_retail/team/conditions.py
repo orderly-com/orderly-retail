@@ -4,11 +4,7 @@ class GenderCondition(Condition):
     def __init__(self):
         self.editor = 'selector'
         self.data = {
-            'choices': [
-                {'zh_tw': '男'},
-                {'zh_tw': '女'},
-                {'zh_tw': '未知'}
-            ]
+            'choices': ['男', '女', '未知']
         }
         self.localization = {
             'zh_tw': '性別篩選'
