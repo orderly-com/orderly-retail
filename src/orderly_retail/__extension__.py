@@ -2,6 +2,23 @@ import extension.extension as orderly_extension
 from .team.conditions import GenderCondition
 
 class Extension(orderly_extension.Extension):
-    def get_conditions():
-        return [GenderCondition]
+    def __init__(self):
+        super().__init__()
 
+        self.register_filter_tab(
+            {'zh_tw': '購買行為篩選'},
+            [GenderCondition()]
+        )
+
+    def get_localization():
+        return {
+            'zh_tw': '電商 / 零售'
+        }
+
+    def get_filter_tab_localization():
+        return {
+            'zh_tw': ''
+        }
+
+    def setup():
+        pass
