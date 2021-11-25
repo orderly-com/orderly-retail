@@ -2,9 +2,11 @@ from team.models import OrderBase, ProductBase
 
 
 class PurchaseBase(OrderBase):
-    pass
+    class Meta:
+        proxy = True
 
 
 class SkuBase(ProductBase):
-    pass
+    class Meta:
+        proxy = True
 
