@@ -6,8 +6,9 @@ class Extension(orderly_extension.Extension):
         super().__init__()
 
         self.register_filter_tab(
+            'order',
             {'zh_tw': '購買行為篩選'},
-            [GenderCondition(), AgeCondition()]
+            {'gender': GenderCondition(), 'age': AgeCondition()}
         )
 
     def get_localization():
