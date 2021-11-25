@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name='python-tracking-sdk',
+    name='orderly-retail',
     version='1.0.0',
     url='https://github.com/orderly-com/orderly-retail',
     license='BSD',
