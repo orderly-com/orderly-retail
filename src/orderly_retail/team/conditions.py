@@ -11,7 +11,7 @@ from django.db.models import QuerySet
 
 from core.utils import list_to_dict
 
-from client_filter import (
+from client_filter.conditions import (
     RangeCondition, BooleanCondition, DateRangeCondition, SelectCondition,
     MultiSelectCondition
 )
@@ -35,6 +35,7 @@ class RFMScoreR(RangeCondition):
     def get_name():
         return '(R) 時間分數'
 
+
 class RFMScoreF(RangeCondition):
     def __init__(self):
         super().__init__()
@@ -50,6 +51,7 @@ class RFMScoreF(RangeCondition):
 
     def get_name():
         return '(F) 頻率分數'
+
 
 class RFMScoreM(RangeCondition):
     def __init__(self):
@@ -132,6 +134,7 @@ class ProductCategoryCondition(MultiSelectCondition):
         category_qs = team.productcategorybase_set.objects.filter(removed=False)
         id_name_map = list_to_dict(category_qs.values('id', 'name'), _key='id')
         self.choice(**id_name_map)
+
 
 class ProductCondition(MultiSelectCondition):
     def __init__(self):

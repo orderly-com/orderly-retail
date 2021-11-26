@@ -1,14 +1,22 @@
 import extension.extension as orderly_extension
-from .team.conditions import GenderCondition, AgeCondition
+from .team.conditions import (
+    RFMScoreR, RFMScoreF, RFMScoreM, PurchaseCount, PurchaseAmount, ProductCategoryCondition, ProductCondition
+)
 
 class Extension(orderly_extension.Extension):
     def __init__(self):
         super().__init__()
 
         self.register_filter_tab(
+            'rfm',
+            {'zh_tw': 'RFM'},
+            [RFMScoreR(), RFMScoreF(), RFMScoreM]
+        )
+
+        self.register_filter_tab(
             'order',
             {'zh_tw': '購買行為篩選'},
-            {'gender': GenderCondition(), 'age': AgeCondition()}
+            [PurchaseCount(), PurchaseAmount(), ProductCategoryCondition(), ProductCondition()]
         )
 
     def get_localization():
