@@ -12,7 +12,7 @@ from django.db.models import QuerySet
 from core.utils import list_to_dict
 
 from client_filter import (
-    ChoiceCondition, RangeCondition, BooleanCondition, DateRangeCondition, SelectCondition,
+    RangeCondition, BooleanCondition, DateRangeCondition, SelectCondition,
     MultiSelectCondition
 )
 
