@@ -32,7 +32,7 @@ class RFMScoreR(RangeCondition):
 
         return client_qs, q
 
-    def get_name():
+    def get_name(self):
         return '(R) 時間分數'
 
 
@@ -49,7 +49,7 @@ class RFMScoreF(RangeCondition):
 
         return client_qs, q
 
-    def get_name():
+    def get_name(self):
         return '(F) 頻率分數'
 
 
@@ -66,7 +66,7 @@ class RFMScoreM(RangeCondition):
 
         return client_qs, q
 
-    def get_name():
+    def get_name(self):
         return '(M) 消費分數'
 
 
@@ -89,7 +89,7 @@ class PurchaseCount(RangeCondition):
 
         return client_qs, q
 
-    def get_name():
+    def get_name(self):
         return '總消費次數'
 
 
@@ -111,7 +111,7 @@ class PurchaseAmount(RangeCondition):
 
         return client_qs, q
 
-    def get_name():
+    def get_name(self):
         return '總消費金額'
 
 
