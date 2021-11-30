@@ -20,9 +20,9 @@ from .models import PurchaseBase
 
 # RFM Filters
 class RFMScoreR(RangeCondition):
-    def __init__(self, name='Cond'):
-        super().__init__()
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
@@ -35,9 +35,9 @@ class RFMScoreR(RangeCondition):
 
 
 class RFMScoreF(RangeCondition):
-    def __init__(self, name='Cond'):
-        super().__init__()
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
@@ -50,9 +50,9 @@ class RFMScoreF(RangeCondition):
 
 
 class RFMScoreM(RangeCondition):
-    def __init__(self, name='Cond'):
-        super().__init__()
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
@@ -66,9 +66,9 @@ class RFMScoreM(RangeCondition):
 
 # Purchase Behavior Filters
 class PurchaseCount(RangeCondition):
-    def __init__(self, name='Cond'):
-        super().__init__()
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         self.add_options(datetime_range=DateRangeCondition())
         self.range(0, 15)
         self.config(postfix=' 次', max_postfix=' +')
@@ -86,9 +86,9 @@ class PurchaseCount(RangeCondition):
 
 
 class PurchaseAmount(RangeCondition):
-    def __init__(self, name='Cond'):
-        super().__init__()
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         self.add_options(datetime_range = DateRangeCondition())
         self.range(0, 15)
         self.config(prefix='$ ', postfix=' 元', max_postfix=' +')
@@ -106,9 +106,9 @@ class PurchaseAmount(RangeCondition):
 
 
 class ProductCategoryCondition(MultiSelectCondition):
-    def __init__(self, name='Cond'):
-        super().__init__()
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
 
     def filter(self, client_qs: QuerySet, category_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
@@ -128,9 +128,9 @@ class ProductCategoryCondition(MultiSelectCondition):
 
 
 class ProductCondition(MultiSelectCondition):
-    def __init__(self, name='Cond'):
-        super().__init__()
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
 
     def filter(self, client_qs: QuerySet, product_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
