@@ -13,8 +13,7 @@ from django.db.models import QuerySet
 from core.utils import list_to_dict
 
 from client_filter.conditions import (
-    RangeCondition, BooleanCondition, DateRangeCondition, SelectCondition,
-    MultiSelectCondition
+    RangeCondition, BooleanCondition, DateRangeCondition, SelectCondition
 )
 
 from .models import PurchaseBase
@@ -106,7 +105,7 @@ class PurchaseAmount(RangeCondition):
         return client_qs, q
 
 
-class ProductCategoryCondition(MultiSelectCondition):
+class ProductCategoryCondition(SelectCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -127,7 +126,7 @@ class ProductCategoryCondition(MultiSelectCondition):
         self.choice(**category_qs)
 
 
-class ProductCondition(MultiSelectCondition):
+class ProductCondition(SelectCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -151,7 +150,7 @@ class ProductCondition(MultiSelectCondition):
 
 
 
-# class ValueTagCondition(MultiSelectCondition):
+# class ValueTagCondition(SelectCondition):
 #     def __init__(self):
 #         super().__init__()
 
