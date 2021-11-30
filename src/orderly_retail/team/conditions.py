@@ -69,7 +69,7 @@ class PurchaseCount(RangeCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.add_options(datetime_range=DateRangeCondition())
+        self.add_options(datetime_range=DateRangeCondition('時間區間'))
         self.range(0, 15)
         self.config(postfix=' 次', max_postfix=' +')
 
@@ -89,7 +89,7 @@ class PurchaseAmount(RangeCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.add_options(datetime_range = DateRangeCondition())
+        self.add_options(datetime_range=DateRangeCondition('時間區間'))
         self.range(0, 15)
         self.config(prefix='$ ', postfix=' 元', max_postfix=' +')
 
