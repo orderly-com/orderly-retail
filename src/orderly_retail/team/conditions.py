@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 
 from django.db.models import Subquery, Count, Min, Sum, Max, F
 from django.db.models.expressions import OuterRef
+from django.db.models.fields import IntegerField
 from django.db.models.query import Q
 from django.db.models import QuerySet
 
@@ -78,7 +79,7 @@ class PurchaseCount(RangeCondition):
 
         datetime_range = options.get('datetime_range')
         orderbase_qs = PurchaseBase.objects.filter(clientbase_id=OuterRef('id'), datetime__range=datetime_range)
-        client_qs = client_qs.annotate(purchase_count=Subquery(orderbase_qs.annotate(count=Count('external_id')).values('count')[:1]))
+        client_qs = client_qs.annotate(purchase_count=Subquery(orderbase_qs.annotate(count=Count('external_id')).values('count')[:1], output_field=IntegerField()))
 
         q &= Q(purchase_count__range=purchase_count_range)
 
@@ -98,7 +99,7 @@ class PurchaseAmount(RangeCondition):
 
         datetime_range = options.get('datetime_range')
         orderbase_qs = PurchaseBase.objects.filter(clientbase_id=OuterRef('id'), datetime__range=datetime_range)
-        client_qs = client_qs.annotate(purchase_amount=Subquery(orderbase_qs.annotate(amount=Sum('total_price')).values('amount')[:1]))
+        client_qs = client_qs.annotate(purchase_amount=Subquery(orderbase_qs.annotate(amount=Sum('total_price')).values('amount')[:1], output_field=IntegerField()))
 
         q &= Q(purchase_amount__range=purchase_amount_range)
 
