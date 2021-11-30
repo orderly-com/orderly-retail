@@ -122,7 +122,7 @@ class ProductCategoryCondition(SelectCondition):
         return client_qs, q
 
     def real_time_init(self, team, *args, **kwargs):
-        category_qs = team.productcategorybase_set.filter(removed=False).values('uuid', 'name')
+        category_qs = team.productcategorybase_set.values('uuid', 'name')
         self.choice(**category_qs)
 
 
