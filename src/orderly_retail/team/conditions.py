@@ -123,9 +123,8 @@ class ProductCategoryCondition(MultiSelectCondition):
         return client_qs, q
 
     def real_time_init(self, team, *args, **kwargs):
-        category_qs = team.productcategorybase_set.objects.filter(removed=False)
-        id_name_map = list_to_dict(category_qs.values('id', 'name'), _key='id')
-        self.choice(**id_name_map)
+        category_qs = team.productcategorybase_set.objects.filter(removed=False).values('uuid', 'name')
+        self.choice(**category_qs)
 
 
 class ProductCondition(MultiSelectCondition):
@@ -145,9 +144,8 @@ class ProductCondition(MultiSelectCondition):
         return client_qs, q
 
     def real_time_init(self, team, *args, **kwargs):
-        product_qs = team.productbase_set.objects.filter(removed=False)
-        id_name_map = list_to_dict(product_qs.values('id', 'name'), _key='id')
-        self.choice(**id_name_map)
+        product_qs = team.productbase_set.objects.filter(removed=False).values('uuid', 'name')
+        self.choice(**product_qs)
 
 # valuetag
 
