@@ -20,8 +20,9 @@ from .models import PurchaseBase
 
 # RFM Filters
 class RFMScoreR(RangeCondition):
-    def __init__(self):
+    def __init__(self, name='Cond'):
         super().__init__()
+        self.name = name
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
@@ -32,13 +33,11 @@ class RFMScoreR(RangeCondition):
 
         return client_qs, q
 
-    def get_name(self):
-        return '(R) 時間分數'
-
 
 class RFMScoreF(RangeCondition):
-    def __init__(self):
+    def __init__(self, name='Cond'):
         super().__init__()
+        self.name = name
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
@@ -49,13 +48,11 @@ class RFMScoreF(RangeCondition):
 
         return client_qs, q
 
-    def get_name(self):
-        return '(F) 頻率分數'
-
 
 class RFMScoreM(RangeCondition):
-    def __init__(self):
+    def __init__(self, name='Cond'):
         super().__init__()
+        self.name = name
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
@@ -66,14 +63,12 @@ class RFMScoreM(RangeCondition):
 
         return client_qs, q
 
-    def get_name(self):
-        return '(M) 消費分數'
-
 
 # Purchase Behavior Filters
 class PurchaseCount(RangeCondition):
-    def __init__(self):
+    def __init__(self, name='Cond'):
         super().__init__()
+        self.name = name
         self.add_options(datetime_range=DateRangeCondition())
         self.range(0, 15)
         self.config(postfix=' 次', max_postfix=' +')
@@ -89,13 +84,11 @@ class PurchaseCount(RangeCondition):
 
         return client_qs, q
 
-    def get_name(self):
-        return '總消費次數'
-
 
 class PurchaseAmount(RangeCondition):
-    def __init__(self):
+    def __init__(self, name='Cond'):
         super().__init__()
+        self.name = name
         self.add_options(datetime_range = DateRangeCondition())
         self.range(0, 15)
         self.config(prefix='$ ', postfix=' 元', max_postfix=' +')
@@ -111,13 +104,11 @@ class PurchaseAmount(RangeCondition):
 
         return client_qs, q
 
-    def get_name(self):
-        return '總消費金額'
-
 
 class ProductCategoryCondition(MultiSelectCondition):
-    def __init__(self):
+    def __init__(self, name='Cond'):
         super().__init__()
+        self.name = name
 
     def filter(self, client_qs: QuerySet, category_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
@@ -137,8 +128,9 @@ class ProductCategoryCondition(MultiSelectCondition):
 
 
 class ProductCondition(MultiSelectCondition):
-    def __init__(self):
+    def __init__(self, name='Cond'):
         super().__init__()
+        self.name = name
 
     def filter(self, client_qs: QuerySet, product_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
