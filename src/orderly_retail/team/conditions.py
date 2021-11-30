@@ -1,7 +1,7 @@
 
 import datetime
 
-from typing import Any, List, Tuple, Optional
+from typing import Any, List, Tuple, Optional, Dict
 from dateutil.relativedelta import relativedelta
 
 from django.db.models import Subquery, Count, Min, Sum, Max, F
@@ -26,7 +26,7 @@ class RFMScoreR(RangeCondition):
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, rfm_r_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, options: Dict, rfm_r_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         q &= Q(rfm_recency__range=rfm_r_range)
@@ -41,7 +41,7 @@ class RFMScoreF(RangeCondition):
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, rfm_f_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, options: Dict, rfm_f_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         q &= Q(rfm_recency__range=rfm_f_range)
@@ -56,7 +56,7 @@ class RFMScoreM(RangeCondition):
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, rfm_m_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, options: Dict, rfm_m_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         q &= Q(rfm_recency__range=rfm_m_range)
@@ -73,10 +73,10 @@ class PurchaseCount(RangeCondition):
         self.range(0, 15)
         self.config(postfix=' 次', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, purchase_count_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, options: Dict, purchase_count_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        datetime_range = self.options.get('datetime_range')
+        datetime_range = options.get('datetime_range')
         orderbase_qs = PurchaseBase.objects.filter(clientbase_id=OuterRef('id'), datetime__range=datetime_range)
         client_qs = client_qs.annotate(purchase_count=Subquery(orderbase_qs.annotate(count=Count('external_id')).values('count')[:1]))
 
@@ -93,10 +93,10 @@ class PurchaseAmount(RangeCondition):
         self.range(0, 15)
         self.config(prefix='$ ', postfix=' 元', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, purchase_amount_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, options: Dict, purchase_amount_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        datetime_range = self.options.get('datetime_range')
+        datetime_range = options.get('datetime_range')
         orderbase_qs = PurchaseBase.objects.filter(clientbase_id=OuterRef('id'), datetime__range=datetime_range)
         client_qs = client_qs.annotate(purchase_amount=Subquery(orderbase_qs.annotate(amount=Sum('total_price')).values('amount')[:1]))
 
@@ -110,10 +110,10 @@ class ProductCategoryCondition(MultiSelectCondition):
         super().__init__(*args, **kwargs)
 
 
-    def filter(self, client_qs: QuerySet, category_ids: List[int]) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, options: Dict, category_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        intersection = self.options.get('intersection', False)
+        intersection = options.get('intersection', False)
         if intersection:
             q &= Q(orderbase__orderproduct__productbase__category_ids__contains=category_ids)
         else:
@@ -132,10 +132,10 @@ class ProductCondition(MultiSelectCondition):
         super().__init__(*args, **kwargs)
 
 
-    def filter(self, client_qs: QuerySet, product_ids: List[int]) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, options: Dict, product_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        intersection = self.options.get('intersection', False)
+        intersection = options.get('intersection', False)
         if intersection:
             q &= Q(orderbase__orderproduct__productbase__contains=product_ids)
         else:
@@ -156,10 +156,10 @@ class ProductCondition(MultiSelectCondition):
 #     def __init__(self):
 #         super().__init__()
 
-#     def filter(self, client_qs: QuerySet, tag_ids: List[int]) -> Tuple[QuerySet, Q]:
+#     def filter(self, client_qs: QuerySet, options: Dict, tag_ids: List[int]) -> Tuple[QuerySet, Q]:
 #         q = Q()
 
-#         intersection = self.options.get('intersection', False)
+#         intersection = options.get('intersection', False)
 #         if intersection:
 #             q &= Q(tag_ids__contains=tag_ids)
 #         else:
