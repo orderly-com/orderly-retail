@@ -122,7 +122,7 @@ class ProductCategoryCondition(SelectCondition):
         return client_qs, q
 
     def real_time_init(self, team, *args, **kwargs):
-        category_qs = team.productcategorybase_set.values(text='name', id='uuid')
+        category_qs = team.productcategorybase_set.values(text=F('name'), id=F('uuid'))
         self.choice(*category_qs)
 
 
@@ -143,7 +143,7 @@ class ProductCondition(SelectCondition):
         return client_qs, q
 
     def real_time_init(self, team, *args, **kwargs):
-        product_qs = team.productbase_set.filter(removed=False).values(text='name', id='uuid')
+        product_qs = team.productbase_set.filter(removed=False).values(text=F('name'), id=F('uuid'))
         self.choice(*product_qs)
 
 # valuetag
