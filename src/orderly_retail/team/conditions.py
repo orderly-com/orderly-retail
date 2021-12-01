@@ -130,7 +130,6 @@ class ProductCondition(SelectCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-
     def filter(self, client_qs: QuerySet, options: Dict, product_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
@@ -146,26 +145,3 @@ class ProductCondition(SelectCondition):
         product_qs = team.productbase_set.filter(removed=False).values('name', 'uuid')
         self.choice(*[{'text': item['name'], 'id': str(item['uuid'])} for item in product_qs])
 
-# valuetag
-
-
-
-# class ValueTagCondition(SelectCondition):
-#     def __init__(self):
-#         super().__init__()
-
-#     def filter(self, client_qs: QuerySet, options: Dict, tag_ids: List[int]) -> Tuple[QuerySet, Q]:
-#         q = Q()
-
-#         intersection = options.get('intersection', False)
-#         if intersection:
-#             q &= Q(tag_ids__contains=tag_ids)
-#         else:
-#             q &= Q(tag_ids__overlap=tag_ids)
-
-#         return client_qs, q
-
-#     def real_time_init(self, team, *args, **kwargs):
-#         product_qs = team.tagbase_set.objects.filter(removed=False)
-#         id_name_map = list_to_dict(product_qs.values('id', 'name'), _key='id')
-#         self.choice(**id_name_map)
