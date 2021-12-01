@@ -10,7 +10,7 @@ class Extension(orderly_extension.Extension):
         self.register_filter_tab(
             'rfm',
             {'zh_tw': 'RFM'},
-            [RFMScoreR('(R) 時間分數'), RFMScoreF('(F) 頻率分數'), RFMScoreM('(R) 消費分數')],
+            [RFMScoreR('(R) 時間分數'), RFMScoreF('(F) 頻率分數'), RFMScoreM('(M) 消費分數')],
             icon='icon-height'
         )
 
