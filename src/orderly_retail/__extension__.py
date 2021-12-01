@@ -10,13 +10,15 @@ class Extension(orderly_extension.Extension):
         self.register_filter_tab(
             'rfm',
             {'zh_tw': 'RFM'},
-            [RFMScoreR('(R) 時間分數'), RFMScoreF('(F) 頻率分數'), RFMScoreM('(R) 消費分數')]
+            [RFMScoreR('(R) 時間分數'), RFMScoreF('(F) 頻率分數'), RFMScoreM('(R) 消費分數')],
+            icon='icon-height'
         )
 
         self.register_filter_tab(
             'order',
             {'zh_tw': '購買行為篩選'},
-            [PurchaseCount('購買次數'), PurchaseAmount('購買金額'), ProductCategoryCondition('購買商品類別'), ProductCondition('購買商品')]
+            [PurchaseCount('購買次數'), PurchaseAmount('購買金額'), ProductCategoryCondition('購買商品類別'), ProductCondition('購買商品')],
+            icon='icon-cart2'
         )
 
     def get_localization():
