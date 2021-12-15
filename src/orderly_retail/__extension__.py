@@ -30,7 +30,7 @@ class Extension(orderly_extension.Extension):
     def get_clientbase_behaviors(self, clientbase):
         try:
             behaviors = []
-            purchaser = PurchaserBase.objects.get(id=clientbase)
+            purchaser = PurchaserBase.objects.get(id=clientbase.id)
 
             behaviors += purchaser.get_purchase_behaviors()
 
