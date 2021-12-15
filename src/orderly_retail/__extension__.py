@@ -2,7 +2,7 @@ import extension.extension as orderly_extension
 from .team.conditions import (
     RFMScoreR, RFMScoreF, RFMScoreM, PurchaseCount, PurchaseAmount, ProductCategoryCondition, ProductCondition
 )
-
+from .team.models import PurchaseBase, PurchaserBase, SkuBase
 class Extension(orderly_extension.Extension):
     def __init__(self):
         super().__init__()
@@ -20,6 +20,23 @@ class Extension(orderly_extension.Extension):
             [PurchaseCount('購買次數'), PurchaseAmount('購買金額'), ProductCategoryCondition('購買商品類別'), ProductCondition('購買商品')],
             icon='icon-cart2'
         )
+
+        self.register_order_model(PurchaseBase)
+
+        self.register_client_model(PurchaserBase)
+
+        self.register_product_model(SkuBase)
+
+    def get_clientbase_behaviors(self, clientbase):
+        try:
+            behaviors = []
+            purchaser = PurchaserBase.objects.get(id=clientbase)
+
+            behaviors += purchaser.get_purchase_behaviors()
+
+            return behaviors
+        except:
+            return []
 
     def get_localization():
         return {
