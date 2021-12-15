@@ -1,8 +1,8 @@
 import extension.extension as orderly_extension
-from team_extension.conditions import (
+from ..team_extension.conditions import (
     RFMScoreR, RFMScoreF, RFMScoreM, PurchaseCount, PurchaseAmount, ProductCategoryCondition, ProductCondition
 )
-from team_extension.models import PurchaseBase, PurchaserBase, SkuBase
+from ..team_extension.models import PurchaseBase, PurchaserBase, SkuBase
 class Extension(orderly_extension.Extension):
     def __init__(self):
         super().__init__()

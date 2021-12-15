@@ -3,7 +3,7 @@ from data_calculation.decorators import calculation_function
 from django.contrib.postgres.aggregates import ArrayAgg
 from core.utils import ForestTimer, bulk_update
 from team.models import Team
-from team_extension.models import PurchaseBase
+from ..team_extension.models import PurchaseBase
 
 @app.task(bind=True)
 @calculation_function
