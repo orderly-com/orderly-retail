@@ -1,6 +1,6 @@
 import extension.extension as orderly_extension
 
-from chart_extension.analyzers import DataSourceSalesTrendingAnalyzer
+from ..chart_extension.analyzers import DataSourceSalesTrendingAnalyzer
 
 from ..team_extension.conditions import (
     RFMScoreR, RFMScoreF, RFMScoreM, PurchaseCount, PurchaseAmount, ProductCategoryCondition, ProductCondition
