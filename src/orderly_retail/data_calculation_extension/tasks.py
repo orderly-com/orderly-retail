@@ -6,7 +6,7 @@ from django.db.models import F
 from team.models import Team
 from data_calculation.decorators import calculation_function
 from data_calculation.models import DataCalculation
-from cerem.tasks import insert_collection
+# from cerem.tasks import insert_collection
 from core.utils import ForestTimer, bulk_update
 
 from ..team_extension.models import PurchaseBase
