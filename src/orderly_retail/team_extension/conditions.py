@@ -11,8 +11,7 @@ from django.db.models.query import Q
 from django.db.models import QuerySet
 
 from core.utils import list_to_dict
-
-from client_filter.conditions import (
+from core.conditions import (
     RangeCondition, BooleanCondition, DateRangeCondition, SelectCondition
 )
 

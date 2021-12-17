@@ -1,8 +1,12 @@
 import extension.extension as orderly_extension
+
+from chart_extension.analyzers import DataSourceSalesTrendingAnalyzer
+
 from ..team_extension.conditions import (
     RFMScoreR, RFMScoreF, RFMScoreM, PurchaseCount, PurchaseAmount, ProductCategoryCondition, ProductCondition
 )
 from ..team_extension.models import PurchaseBase, PurchaserBase, SkuBase
+
 class Extension(orderly_extension.Extension):
     def __init__(self):
         super().__init__()
@@ -26,6 +30,12 @@ class Extension(orderly_extension.Extension):
         self.register_client_model(PurchaserBase)
 
         self.register_product_model(SkuBase)
+
+        self.register_chart_tab(
+            'overview',
+            {'zh_tw': '總覽'},
+            [DataSourceSalesTrendingAnalyzer('通路銷售趨勢')]
+        )
 
     def get_clientbase_behaviors(self, clientbase):
         try:
