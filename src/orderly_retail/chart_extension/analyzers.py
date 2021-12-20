@@ -7,7 +7,7 @@ from analytics import analyzers
 
 from cerem.utils import PipelineBuilder, wrappers
 from cerem.tasks import aggregate_collection
-from core.conditions import ChoiceCondition
+from client_filter.conditions import ChoiceCondition
 
 from ..data_calculation_extension.tasks import COLLECTION_ORDERPRODUCT, COLLECTION_PURCHASEBASE
 from ..team_extension.models import PurchaseBase
