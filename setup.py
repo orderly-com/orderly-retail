@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name='orderly-ext',
+    name='retail-ext',
     version='1.0.0',
     url='https://github.com/orderly-com/retail-ext',
     license='BSD',
