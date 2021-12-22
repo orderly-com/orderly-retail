@@ -9,7 +9,7 @@ from data_calculation.models import DataCalculation
 # from cerem.tasks import insert_collection
 from core.utils import ForestTimer, bulk_update
 
-from .src.orderly_retail.team.models import PurchaseBase
+from .team.models import PurchaseBase
 
 COLLECTION_ORDERPRODUCT = 'retail_orderproduct'
 COLLECTION_PURCHASEBASE = 'retail_purchasebase'
