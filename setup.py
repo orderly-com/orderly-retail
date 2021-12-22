@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name='orderly-ext',
     version='1.0.0',
-    url='https://github.com/orderly-com/orderly-ext',
+    url='https://github.com/orderly-com/retail-ext',
     license='BSD',
     description='Orderly extension for retail industry',
     author='RayYang',
