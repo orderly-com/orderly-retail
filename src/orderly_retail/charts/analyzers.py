@@ -9,8 +9,8 @@ from cerem.utils import PipelineBuilder, wrappers
 from cerem.tasks import aggregate_collection
 from client_filter.conditions import ChoiceCondition
 
-from ..data_calculation_extension.tasks import COLLECTION_ORDERPRODUCT, COLLECTION_PURCHASEBASE
-from ..team_extension.models import PurchaseBase
+from ....tasks import COLLECTION_ORDERPRODUCT, COLLECTION_PURCHASEBASE
+from ..team.models import PurchaseBase
 
 class PurchaseBasePipelineBuilder(PipelineBuilder):
     def __init__(self, *args, **kwargs):
