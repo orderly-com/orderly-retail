@@ -2,9 +2,9 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name='orderly-retail',
+    name='retail-ext',
     version='1.0.0',
-    url='https://github.com/orderly-com/orderly-retail',
+    url='https://github.com/orderly-com/retail-ext',
     license='BSD',
     description='Orderly extension for retail industry',
     author='RayYang',
