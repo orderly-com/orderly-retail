@@ -108,7 +108,6 @@ class ProductCategoryCondition(SelectCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-
     def filter(self, client_qs: QuerySet, category_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
