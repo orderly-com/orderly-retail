@@ -68,14 +68,14 @@ class PurchaseCount(RangeCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.add_options(datetime_range=DateRangeCondition('時間區間'))
+        self.add_self.options(datetime_range=DateRangeCondition('時間區間'))
         self.range(0, 15)
         self.config(postfix=' 次', max_postfix=' +')
 
     def filter(self, client_qs: QuerySet, purchase_count_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        datetime_range = options.get('datetime_range')
+        datetime_range = self.options.get('datetime_range')
         orderbase_qs = PurchaseBase.objects.filter(clientbase_id=OuterRef('id'), datetime__range=datetime_range)
         client_qs = client_qs.annotate(purchase_count=Subquery(orderbase_qs.annotate(count=Count('external_id')).values('count')[:1], output_field=IntegerField()))
 
@@ -88,14 +88,14 @@ class PurchaseAmount(RangeCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.add_options(datetime_range=DateRangeCondition('時間區間'))
+        self.add_self.options(datetime_range=DateRangeCondition('時間區間'))
         self.range(0, 15)
         self.config(prefix='$ ', postfix=' 元', max_postfix=' +')
 
     def filter(self, client_qs: QuerySet, purchase_amount_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        datetime_range = options.get('datetime_range')
+        datetime_range = self.options.get('datetime_range')
         orderbase_qs = PurchaseBase.objects.filter(clientbase_id=OuterRef('id'), datetime__range=datetime_range)
         client_qs = client_qs.annotate(purchase_amount=Subquery(orderbase_qs.annotate(amount=Sum('total_price')).values('amount')[:1], output_field=IntegerField()))
 
@@ -112,7 +112,7 @@ class ProductCategoryCondition(SelectCondition):
     def filter(self, client_qs: QuerySet, category_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        intersection = options.get('intersection', False)
+        intersection = self.options.get('intersection', False)
         if intersection:
             q &= Q(orderbase__orderproduct__productbase__category_ids__contains=category_ids)
         else:
@@ -132,7 +132,7 @@ class ProductCondition(SelectCondition):
     def filter(self, client_qs: QuerySet, product_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
-        intersection = options.get('intersection', False)
+        intersection = self.options.get('intersection', False)
         if intersection:
             q &= Q(orderbase__orderproduct__productbase__contains=product_ids)
         else:
