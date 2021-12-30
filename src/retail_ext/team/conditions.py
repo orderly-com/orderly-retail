@@ -11,6 +11,8 @@ from django.db.models.query import Q
 from django.db.models import QuerySet
 from django.contrib.postgres.aggregates import ArrayAgg
 
+from team.models import OrderProduct
+
 from core.utils import list_to_dict
 from client_filter.conditions import (
     RangeCondition, BooleanCondition, DateRangeCondition, SelectCondition
@@ -134,11 +136,21 @@ class ProductCondition(SelectCondition):
         q = Q()
 
         intersection = self.options.get('intersection', False)
-        client_qs = client_qs.annotate(product_ids=ArrayAgg('orderbase__orderproduct__productbase_id'))
-        if intersection:
-            q &= Q(product_ids__contains=product_ids)
-        else:
-            q &= Q(product_ids__overlap=product_ids)
+        qs = (OrderProduct.objects
+            .values('clientbase_id')
+            .annotate(productbase_ids=ArrayAgg('productbase_id'))
+            .values('clientbase_id', 'productbase_ids')
+        )
+        valid_ids = []
+        for item in qs:
+            if intersection:
+                if set(product_ids).issubset(set(item['productbase_ids'])):
+                    valid_ids.append(item['clientbase_id'])
+            else:
+                if set(product_ids).intersection(set(item['productbase_ids'])):
+                    valid_ids.append(item['clientbase_id'])
+
+        q &= Q(id__in=valid_ids)
 
         return client_qs, q
 
