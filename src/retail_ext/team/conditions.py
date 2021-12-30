@@ -9,6 +9,7 @@ from django.db.models.expressions import OuterRef
 from django.db.models.fields import IntegerField
 from django.db.models.query import Q
 from django.db.models import QuerySet
+from django.contrib.postgres.fields import ArrayField
 
 from core.utils import list_to_dict
 from client_filter.conditions import (
@@ -133,10 +134,11 @@ class ProductCondition(SelectCondition):
         q = Q()
 
         intersection = self.options.get('intersection', False)
+        client_qs = client_qs.annotate(product_ids=ArrayField('orderbase__orderproduct__productbase_id'))
         if intersection:
-            q &= Q(orderbase__orderproduct__productbase__contains=product_ids)
+            q &= Q(product_ids__contains=product_ids)
         else:
-            q &= Q(orderbase__orderproduct__productbase__in=product_ids)
+            q &= Q(product_ids__overlap=product_ids)
 
         return client_qs, q
 
