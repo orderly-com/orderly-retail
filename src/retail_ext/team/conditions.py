@@ -136,7 +136,7 @@ class ProductCondition(SelectCondition):
         q = Q()
 
         intersection = self.options.get('intersection', False)
-        qs = (OrderProduct.objects
+        qs = (OrderProduct.objects.filter(clientbase_id__in=client_qs.values_list('id', flat=True))
             .values('clientbase_id')
             .annotate(productbase_ids=ArrayAgg('productbase_id'))
             .values('clientbase_id', 'productbase_ids')
