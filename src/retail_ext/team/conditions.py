@@ -136,7 +136,7 @@ class ProductCondition(SelectCondition):
         if intersection:
             q &= Q(orderbase__orderproduct__productbase__contains=product_ids)
         else:
-            q &= Q(orderbase__orderproduct__productbase__overlap=product_ids)
+            q &= Q(orderbase__orderproduct__productbase__in=product_ids)
 
         return client_qs, q
 
