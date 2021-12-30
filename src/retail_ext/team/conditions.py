@@ -25,7 +25,7 @@ class RFMScoreR(RangeCondition):
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, options: Dict, rfm_r_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, rfm_r_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         q &= Q(rfm_recency__range=rfm_r_range)
@@ -40,7 +40,7 @@ class RFMScoreF(RangeCondition):
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, options: Dict, rfm_f_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, rfm_f_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         q &= Q(rfm_recency__range=rfm_f_range)
@@ -55,7 +55,7 @@ class RFMScoreM(RangeCondition):
         self.range(0, 5)
         self.config(postfix=' 分', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, options: Dict, rfm_m_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, rfm_m_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         q &= Q(rfm_recency__range=rfm_m_range)
@@ -72,7 +72,7 @@ class PurchaseCount(RangeCondition):
         self.range(0, 15)
         self.config(postfix=' 次', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, options: Dict, purchase_count_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, purchase_count_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         datetime_range = options.get('datetime_range')
@@ -92,7 +92,7 @@ class PurchaseAmount(RangeCondition):
         self.range(0, 15)
         self.config(prefix='$ ', postfix=' 元', max_postfix=' +')
 
-    def filter(self, client_qs: QuerySet, options: Dict, purchase_amount_range: Any) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, purchase_amount_range: Any) -> Tuple[QuerySet, Q]:
         q = Q()
 
         datetime_range = options.get('datetime_range')
@@ -109,7 +109,7 @@ class ProductCategoryCondition(SelectCondition):
         super().__init__(*args, **kwargs)
 
 
-    def filter(self, client_qs: QuerySet, options: Dict, category_ids: List[int]) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, category_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
         intersection = options.get('intersection', False)
@@ -129,7 +129,7 @@ class ProductCondition(SelectCondition):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def filter(self, client_qs: QuerySet, options: Dict, product_ids: List[int]) -> Tuple[QuerySet, Q]:
+    def filter(self, client_qs: QuerySet, product_ids: List[int]) -> Tuple[QuerySet, Q]:
         q = Q()
 
         intersection = options.get('intersection', False)
