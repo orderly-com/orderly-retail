@@ -170,59 +170,6 @@ class OrderProduct(BaseModel):
     # manual_updated_by = models.ManyToManyField(User, blank=True)
     # *********
 
-    def update_prices(self, order_external_id=None, status=None, total_price=0, total_paid=0, order_product_data=list, order_product_data_index=3):
-
-        if order_external_id == '' or order_external_id is None:
-            raise
-
-        # calculate total_price_of_orderproduct
-        total_price_of_orderproduct = 0
-        for order_product in order_product_data[order_external_id]:
-            total_price_of_orderproduct = total_price_of_orderproduct + order_product[order_product_data_index]
-
-        try:
-            total_price = int(total_price)
-        except ValueError:
-            total_price = 0
-
-        try:
-            total_paid = int(total_paid)
-        except ValueError:
-            total_paid = 0
-
-        # total_price and total_paid
-        if total_price == total_paid == 0:
-
-            # calculate total_price_of_orderproduct and assign to total_price, total_paid
-
-            total_price = total_price_of_orderproduct
-
-            if status == OrderBase.STATUS_CONFIRMED:
-
-                total_paid = total_price
-
-        else:
-
-            if total_price == 0:
-                # total_price is 0
-                total_price = total_paid
-
-            if total_paid == 0:
-
-                # total_paid is 0
-                if status == OrderBase.STATUS_CONFIRMED:
-
-                    total_paid = total_price
-
-                else:
-                    total_paid = 0
-
-        self.total_price = total_price
-        self.total_paid = total_paid
-        self.total_price_of_orderproduct = total_price_of_orderproduct
-
-        self.save(update_fields=['total_price', 'total_paid', 'total_price_of_orderproduct', 'u_at'])
-
     def get_original_price(self, check_manual=True):
         original = self.original_price
         manual = self.manual_original_price
