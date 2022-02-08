@@ -2,6 +2,7 @@ from django.db import models
 
 from team.models import ProductBase, ClientBase, OrderBase
 
+from core.models import BaseModel
 
 class SkuBase(ProductBase):
     class Meta:
