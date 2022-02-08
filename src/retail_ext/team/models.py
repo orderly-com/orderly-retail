@@ -2,10 +2,6 @@ from django.db import models
 
 from team.models import ProductBase, ClientBase, OrderBase
 
-class PurchaseBase(OrderBase):
-    class Meta:
-        proxy = True
-
 
 class SkuBase(ProductBase):
     class Meta:
