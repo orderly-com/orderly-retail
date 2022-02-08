@@ -2,11 +2,11 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name='retail-ext',
+    name='media-ext',
     version='1.0.0',
-    url='https://github.com/orderly-com/retail-ext',
+    url='https://github.com/orderly-com/media-ext',
     license='BSD',
-    description='Orderly extension for retail industry',
+    description='Orderly extension for media industry',
     author='RayYang',
     author_email='ray.yang@ezorderly.com',
 
