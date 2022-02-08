@@ -2,16 +2,13 @@ from django.db import models
 
 from team.models import ProductBase, ClientBase, OrderBase
 
-class PurchaseBase(OrderBase):
-    pass
-
 
 class SkuBase(ProductBase):
     class Meta:
         proxy = True
 
 
-class PurchaserBase(ClientBase):
+class PurchaseBase(OrderBase):
     class Meta:
         indexes = [
             models.Index(fields=['team', ]),
