@@ -9,43 +9,9 @@ class SkuBase(ProductBase):
         proxy = True
 
 
-class PurchaseBase(OrderBase):
+class PurchaserBase(ClientBase):
     class Meta:
-        indexes = [
-            models.Index(fields=['team', ]),
-            models.Index(fields=['clientbase']),
-            models.Index(fields=['uniq_id']),
-
-            models.Index(fields=['team', 'external_id']),
-            models.Index(fields=['team', 'datetime']),
-            models.Index(fields=['team', 'delivery_datetime']),
-            models.Index(fields=['team', 'clientbase']),
-            models.Index(fields=['team', 'uniq_id']),
-
-
-            models.Index(fields=['team', 'external_id', 'datasource_id']),
-            models.Index(fields=['team', 'status_key', 'removed']),
-            models.Index(fields=['team', 'clientbase', 'datetime']),
-
-        ]
-
-    # total price, get from order data
-    total_price = models.FloatField(default=0)
-
-    # list of status_key
-    STATUS_CONFIRMED = 'CONFIRMED'
-    STATUS_ABANDONED = 'ABANDONED'
-    STATUS_KEEP = 'KEEP'
-
-    # OrderStatus
-    status = models.CharField(max_length=64, blank=False, null=False, default='')
-    status_key = models.CharField(max_length=64, blank=False, null=False, default='')  # CONFIRMED, ABANDONED or KEEP
-
-    # shipping_address
-    shipping_address = models.CharField(max_length=512, blank=True, null=True, default='')
-
-    # shipping_cost
-    shipping_cost = models.FloatField(default=0)
+        proxy = True
 
     def get_purchase_behaviors(self):
 
@@ -96,6 +62,45 @@ class PurchaseBase(OrderBase):
             behaviors.append(obj)
 
         return behaviors
+
+
+class PurchaseBase(OrderBase):
+    class Meta:
+        indexes = [
+            models.Index(fields=['team', ]),
+            models.Index(fields=['clientbase']),
+            models.Index(fields=['uniq_id']),
+
+            models.Index(fields=['team', 'external_id']),
+            models.Index(fields=['team', 'datetime']),
+            models.Index(fields=['team', 'delivery_datetime']),
+            models.Index(fields=['team', 'clientbase']),
+            models.Index(fields=['team', 'uniq_id']),
+
+
+            models.Index(fields=['team', 'external_id', 'datasource_id']),
+            models.Index(fields=['team', 'status_key', 'removed']),
+            models.Index(fields=['team', 'clientbase', 'datetime']),
+
+        ]
+
+    # total price, get from order data
+    total_price = models.FloatField(default=0)
+
+    # list of status_key
+    STATUS_CONFIRMED = 'CONFIRMED'
+    STATUS_ABANDONED = 'ABANDONED'
+    STATUS_KEEP = 'KEEP'
+
+    # OrderStatus
+    status = models.CharField(max_length=64, blank=False, null=False, default='')
+    status_key = models.CharField(max_length=64, blank=False, null=False, default='')  # CONFIRMED, ABANDONED or KEEP
+
+    # shipping_address
+    shipping_address = models.CharField(max_length=512, blank=True, null=True, default='')
+
+    # shipping_cost
+    shipping_cost = models.FloatField(default=0)
 
 
 class OrderProduct(BaseModel):
