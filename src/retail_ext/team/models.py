@@ -1,6 +1,6 @@
 from django.db import models
 
-from team.models import ProductBase, ClientBase, OrderBase
+from team.models import ProductBase, ClientBase, OrderBase, Team
 
 from core.models import BaseModel
 
@@ -120,7 +120,7 @@ class OrderProduct(BaseModel):
     uploadedfile_id = models.IntegerField(blank=True, null=True)  # so we can trace back to it's uploadedfile # NOT IMPLEMENTED
 
     productbase = models.ForeignKey(ProductBase, blank=False, null=False, on_delete=models.CASCADE)
-    orderbase = models.ForeignKey(OrderBase, blank=False, null=False, on_delete=models.CASCADE)
+    orderbase = models.ForeignKey(PurchaseBase, blank=False, null=False, on_delete=models.CASCADE)
     clientbase = models.ForeignKey(ClientBase, blank=False, null=True, default=None, on_delete=models.CASCADE)
 
     datetime = models.DateTimeField(blank=False, null=False)  # orderbase.datetime
